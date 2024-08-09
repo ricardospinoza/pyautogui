@@ -39,15 +39,19 @@ image_filenames = [
     "guilda_400.jpg",
     "guilda_240.jpg",
     "sair_menu.jpg",
+    "sair_menu.jpg",
     "equipar.jpg",
     "resussitar.jpg",
     "teletransportar.jpg",
-    "toque_na_tela.jpg"
+    #"toque_na_tela.jpg",
+    "porcao_zerada.jpg",
+    "sendo_atacado.jpg",
 ]
 
 def execute():
     while True:
         is_sair_guilda = False
+        #is_sair_masmorra = False
 
         for image_filename in image_filenames:
             # Ensure the path to the image is correct
@@ -60,6 +64,35 @@ def execute():
                     if image_filename in ["guilda_400.jpg", "guilda_240.jpg"]:
                         pyautogui.click(577, 592)
                         is_sair_guilda = True
+                    elif image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg"]: #and not is_sair_masmorra:
+                        print(f"Detectada acao: {image_name}                         ")
+                        #saida masmorra sobre atack
+                        image_path = os.path.join(os.path.dirname(__file__), "saida_masmorra.jpg")
+                        image_location = pyautogui.locateOnScreen(image_path, confidence=0.8)
+                        x, y = pyautogui.center(image_location)
+                        pyautogui.click(x, y)
+                        print(f"Detectada acao: {image_path}                         ")
+                        time.sleep(1.5)
+                        #confirma saida
+                        image_path = os.path.join(os.path.dirname(__file__), "teletransportar.jpg")
+                        image_location = pyautogui.locateOnScreen(image_path, confidence=0.8)
+                        x, y = pyautogui.center(image_location)
+                        pyautogui.click(x, y)
+                        print(f"Detectada acao: {image_path}                         ")
+                        time.sleep(2)
+                        #quando não volta pro repass continua no automatico
+                        #image_path = os.path.join(os.path.dirname(__file__), "auto.jpg")
+                        #image_location = pyautogui.locateOnScreen(image_path, confidence=0.8)
+                        #x, y = pyautogui.center(image_location)
+                        #pyautogui.click(x, y)
+                        #print(f"Detectada acao: {image_path}                         ")
+                        
+                        
+                        #time.sleep(2)
+                        #pyautogui.click(577, 592)
+                        #entrada_luta_boss.jpg
+                        #equipe_ok
+                        #is_sair_masmorra = True
                     else:
                         image_name, _ = os.path.splitext(image_filename)
                         print(f"Detectada acao: {image_name}                         ")
@@ -68,6 +101,7 @@ def execute():
                         if image_filename == "sair_menu.jpg" and not is_sair_guilda:
                             is_sair_guilda = False
                             continue
+
 
                         pyautogui.click(x, y)
                     time.sleep(1)

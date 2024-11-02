@@ -30,21 +30,24 @@ def run_as_admin():
 # List of image filenames
 image_filenames = [
     "missao_concluida.jpg",
-    "missao_aceita.jpg",
+    "missao_aceita.jpg",    
     "pular_bla.jpg",
     "pular_blabla.jpg",
     "pular_blablabla.jpg",
+    "teletransportar.jpg",
     "diretiva_disponivel_guilda.jpg",
-    "guilda_atualizar_diretivas.jpg",
+    "guilda_atualizar_diretivas.jpg",    
     "guilda_400.jpg",
     "guilda_240.jpg",
     "sair_menu.jpg",
-    "sair_menu.jpg",
+    "sair_menu.jpg",    
     "equipar.jpg",
     "resussitar.jpg",
     #"toque_na_tela.jpg",
+    "teletransportar.jpg",
     "porcao_zerada.jpg",
     "sendo_atacado.jpg",
+    "sobre_ataque.jpg",
     "saida_masmorra.jpg",
     "teletransportar.jpg",
     "equipe_ok.jpg"
@@ -66,8 +69,7 @@ def execute():
                     if image_filename in ["guilda_400.jpg", "guilda_240.jpg"]:
                         pyautogui.click(577, 592)
                         is_sair_guilda = True
-                    elif image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg"] and not is_sair_masmorra:
-                        
+                    elif image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg", "sobre_ataque.jpg"] and not is_sair_masmorra:                        
                         is_sair_masmorra = True
                     else:
                         image_name, _ = os.path.splitext(image_filename)
@@ -82,18 +84,18 @@ def execute():
                             is_sair_masmorra = False
                             continue
 
-                        if image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg"]:
+                        if image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg", "sobre_ataque.jpg"]:
                             continue
                         
                         pyautogui.click(x, y)
-                        time.sleep(1)
+                        time.sleep(0.5)
                 #else:
                 #    print(f"Imagem não encontrada: {image_filename}")
             except pyautogui.ImageNotFoundException:
                 #print(f"Exceção de imagem não encontrada: {image_filename}")
                 pass
 
-        animate_rotating_chars(5)
+        animate_rotating_chars(0.5)
 
 if __name__ == "__main__":
     if run_as_admin():

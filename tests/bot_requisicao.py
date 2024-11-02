@@ -74,7 +74,7 @@ def execute():
                     pyautogui.click(x, y)
 
                     # Optional pause after each click
-                    time.sleep(1)  # Adjust delay as needed
+                    time.sleep(0.5)  # Adjust delay as needed
                 #else:
                 #    print(f"Imagem não encontrada na tela: {image_filename}")
             except pyautogui.ImageNotFoundException:
@@ -84,7 +84,7 @@ def execute():
                 #print(f"Ocorreu um erro ao localizar a imagem {image_filename}: {e}")
                 pass
 
-        animate_rotating_chars(5)
+        animate_rotating_chars(2)
 
 if __name__ == "__main__":
     if run_as_admin():

@@ -3,6 +3,7 @@ import time
 import os
 import ctypes
 import sys
+import threading
 
 # Disable the fail-safe feature
 pyautogui.FAILSAFE = False
@@ -26,6 +27,11 @@ def run_as_admin():
         print("Solicitando autorização para executar como administrador...")
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
         return False
+    
+
+def start_animation():
+    while True:
+        animate_rotating_chars(0.5)
 
 # List of image filenames
 image_filenames = [
@@ -54,6 +60,10 @@ image_filenames = [
 ]
 
 def execute():
+
+    # Inicia a animação em uma thread separada
+    threading.Thread(target=start_animation, daemon=True).start()
+
     while True:
         is_sair_guilda = False
         is_sair_masmorra = False
@@ -95,7 +105,7 @@ def execute():
                 #print(f"Exceção de imagem não encontrada: {image_filename}")
                 pass
 
-        animate_rotating_chars(0.5)
+        #animate_rotating_chars(0.5)
 
 if __name__ == "__main__":
     if run_as_admin():

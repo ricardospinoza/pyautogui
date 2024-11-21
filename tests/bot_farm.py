@@ -55,11 +55,18 @@ image_filenames = [
     "teletransportar.jpg",
     "porcao_zerada.jpg",
     "sendo_atacado.jpg",
-    "sendo_atacado_2.jpg",
+    "teletransportar.jpg",
+    "sendo_atacado_3.jpg",
+    "teletransportar.jpg",
     "sobre_ataque.jpg",
+    "teletransportar.jpg",
     "saida_masmorra.jpg",
     "teletransportar.jpg",
-    "equipe_ok.jpg"    
+    "equipe_ok.jpg",
+    "aceitar_masmorra_equipe.jpg",
+    "aprovacao_masmorra_equipe.jpg"
+    #"objetivo_masmorra_equipe_icon.jpg"
+    #"masmorra_equipe_alvo.jpg"
 ]
 
 # Variável para armazenar a data em que limite_campanha_diaria foi detectada
@@ -119,7 +126,7 @@ def execute():
                             is_sair_masmorra = False
                             continue
 
-                        if image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg", "sobre_ataque.jpg", "sendo_atacado_2.jpg"]:
+                        if image_filename in ["porcao_zerada.jpg", "sendo_atacado.jpg", "sobre_ataque.jpg", "sendo_atacado_3.jpg"]:
                             continue
                         
                         pyautogui.click(x, y)

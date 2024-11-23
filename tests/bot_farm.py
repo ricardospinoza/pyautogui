@@ -64,17 +64,22 @@ image_filenames = [
     "teletransportar.jpg",
     "equipe_ok.jpg",
     "aceitar_masmorra_equipe.jpg",
-    "aprovacao_masmorra_equipe.jpg"
-    #"objetivo_masmorra_equipe_icon.jpg"
-    #"masmorra_equipe_alvo.jpg"
+    "aprovacao_masmorra_equipe.jpg",
+    "objetivo_masmorra_equipe_icon.jpg"
 ]
 
 # Variável para armazenar a data em que limite_campanha_diaria foi detectada
 limite_detectado_data = None
 
+# Variáveis de controle para cliques únicos masmorra equipe
+clicou_resussitar = False
+clicou_masmorra = False
+
 def execute():
     # Inicia a animação em uma thread separada
     threading.Thread(target=start_animation, daemon=True).start()
+
+    global clicou_resussitar, clicou_masmorra  # Variáveis globais para rastrear cliques únicos
 
     while True:
         global limite_detectado_data
@@ -101,6 +106,36 @@ def execute():
             try:
                 image_location = pyautogui.locateOnScreen(image_path, confidence=0.8)
                 if image_location:
+
+                    #INI - Masmorra equipe
+                    # Detecção de "resussitar.jpg"
+                    if image_filename == "resussitar.jpg":
+                        clicou_resussitar = True  # Ativa a flag para ressuscitar
+
+                    # Clique único após ressuscitar
+                    if clicou_resussitar:
+                        if image_filename == "objetivo_masmorra_equipe_icon.jpg" and not clicou_masmorra:
+                            x, y = pyautogui.center(image_location)
+                            pyautogui.click(x, y)
+                            print("Clicou em 'objetivo_masmorra_equipe_icon.jpg'")
+                            clicou_resussitar = False  # Reseta a flag de ressuscitar
+                            clicou_masmorra = True  # Marca que já clicou na masmorra
+                            break
+
+                        elif image_filename == "aceitar_masmorra_equipe.jpg" and not clicou_masmorra:
+                            x, y = pyautogui.center(image_location)
+                            pyautogui.click(x, y)
+                            print("Clicou em 'aceitar_masmorra_equipe.jpg'")
+                            clicou_resussitar = False  # Reseta a flag de ressuscitar
+                            clicou_masmorra = True  # Marca que já clicou na masmorra
+                            break
+
+                    if image_filename == "objetivo_masmorra_equipe_icon.jpg":
+                        #ignora fora do contexto da masmorra de equipe
+                        continue
+
+                    #FIM - Masmorra equipe
+ 
                     # Se "limite_campanha_diaria_ignorar_missao.jpg" for detectada, salva a data
                     if image_filename == "limite_campanha_diaria_ignorar_missao.jpg":
                         limite_detectado_data = hoje
